@@ -9,7 +9,9 @@ Auteur : <input type="text" ng-model="catalogCtrl.search.text.author">
 Editeur : <input type="text" ng-model="catalogCtrl.search.text.publisher">
 <hr>
 Résultats : {{ result.length }}
-
+<hr>
+min : <input type="text" ng-model="catalogCtrl.search.price.min">
+max : <input type="text" ng-model="catalogCtrl.search.price.max">
 <table border="1">
     <tr>
         <td>titre du livre</td>
@@ -20,7 +22,8 @@ Résultats : {{ result.length }}
         <td>prix</td>
     </tr>
 
-    <tr  ng-repeat="book in  catalogCtrl.catalog | filter: catalogCtrl.search.text as result" >
+    <tr  ng-repeat="book in  catalogCtrl.catalog | filter: catalogCtrl.search.text
+     | interval : catalogCtrl.search.price.min : catalogCtrl.search.price.max as result" >
         <td>{{book.title}}</td>
         <td><a href="#/book/{{book._id.$oid}}"><img ng-src="{{book.img}}"/></a></td>
         <td>{{book.author}}</td>
