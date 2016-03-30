@@ -1,0 +1,33 @@
+
+
+
+Recherche global :
+<input type="text" ng-model="catalogCtrl.search.text" name="title" >
+<br>
+Titre : <input type="text" ng-model="catalogCtrl.search.text.title">
+Auteur : <input type="text" ng-model="catalogCtrl.search.text.author">
+Editeur : <input type="text" ng-model="catalogCtrl.search.text.publisher">
+<hr>
+Résultats : {{ result.length }}
+
+<table border="1">
+    <tr>
+        <td>titre du livre</td>
+        <td>image</td>
+        <td> nom de l’auteur</td>
+        <td>publisher</td>
+        <td>rating</td>
+        <td>prix</td>
+    </tr>
+
+    <tr  ng-repeat="book in  catalogCtrl.catalog | filter: catalogCtrl.search.text as result" >
+        <td>{{book.title}}</td>
+        <td><a href="#/book/{{book._id.$oid}}"><img ng-src="{{book.img}}"/></a></td>
+        <td>{{book.author}}</td>
+        <td>{{book.publisher}}</td>
+        <td>{{book.rating}}</td>
+        <td>{{book.price}}</td>
+    </tr>
+</table>
+
+<pre>{{catalogCtrl.catalog | json}}</pre>
