@@ -5,23 +5,58 @@ angular
 
     .value('tva', 1.20)
 
+    .factory("catalogService", function ($http) {
+        var url = "https://api.mongolab.com/api/1/databases/books/collections/books/?apiKey=d3qvB8ldYFW2KSynHRediqLuBLP8JA8i"
+
+        var promise = $http.get(url).then(function (response) {
+            return response.data;
+        });
+
+        return {
+            getList: function () {
+                return promise;
+            },
+            getBook: function (id) {
+
+                return promise.then(function (books) {
+                    for (var i = 0 ; i < books.length ; i++) {
+                        if (books[i]._id.$oid == id) {
+                            return books[i];
+                        }
+                    }
+                    throw "Book not found: " + id;
+                });
+
+
+                // var bookUrl =
+                //     "https://api.mongolab.com/api/1/databases/books/collections/books/"
+                //     + id
+                //     + "?apiKey=d3qvB8ldYFW2KSynHRediqLuBLP8JA8i";
+                // $http.get(bookUrl).then(function (response) {
+                //     bookCtrl.book = response.data;
+                // });
+
+            }
+        }
+
+    })
     .factory("stateService", function () {
         var states = {};
         return function (pageId, initialValue) {
             return states[pageId] || (states[pageId] = initialValue);
         };
     })
-    .factory("orderService", function(){
+    .factory("orderService", function () {
 
         var list = [
             {expr: 'price', reverse: false, label: "Prix croissant"},
-            {expr: 'price', reverse: true,  label: "Prix décroissant"},
+            {expr: 'price', reverse: true, label: "Prix décroissant"},
             {expr: 'title', reverse: false, label: "Titre"}
         ];
 
         return {
             options: list,
-            default:list[1]
+            default: list[1]
         };
 
     })

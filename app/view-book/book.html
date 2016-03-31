@@ -1,22 +1,25 @@
+<div ng-show="bookCtrl.affiche">
+    <table border="1">
+        <tr>
+            <td>titre du livre</td>
+            <td>image</td>
+            <td> nom de l’auteur</td>
+            <td>publisher</td>
+            <td>rating</td>
+            <td>prix</td>
+        </tr>
+        <tr>
+            <td>{{bookCtrl.book.title}}</td>
+            <td><a href="#/book/{{book._id.$oid}}"><img ng-src="{{bookCtrl.book.img}}"/></a></td>
+            <td>{{bookCtrl.book.author}}</td>
+            <td>{{bookCtrl.book.publisher}}</td>
+            <td>{{bookCtrl.book.rating}}</td>
+            <td>{{bookCtrl.book.price}}</td>
+        </tr>
+    </table>
+    <div ng-bind-html="bookCtrl.book.desc"></div>
 
-<table border="1">
-    <tr>
-        <td>titre du livre</td>
-        <td>image</td>
-        <td> nom de l’auteur</td>
-        <td>publisher</td>
-        <td>rating</td>
-        <td>prix</td>
-    </tr>
-
-    <tr >
-        <td>{{bookCtrl.book.title}}</td>
-        <td><a href="#/book/{{book._id.$oid}}"><img ng-src="{{bookCtrl.book.img}}"/></a></td>
-        <td>{{bookCtrl.book.author}}</td>
-        <td>{{bookCtrl.book.publisher}}</td>
-        <td>{{bookCtrl.book.rating}}</td>
-        <td>{{bookCtrl.book.price}}</td>
-    </tr>
-</table>
-
-<div ng-bind-html="bookCtrl.book.desc"></div>
+</div>
+<div ng-hide="bookCtrl.affiche">
+    <p>{{bookCtrl.error}}</p>
+</div>

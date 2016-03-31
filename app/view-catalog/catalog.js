@@ -11,14 +11,20 @@ angular
 
     })
 
-    .controller('CatalogController', function ($http,$rootScope,$location,cart,stateService,orderService) {
+    .controller('CatalogController', function ($http,$rootScope,$location,cart,stateService,orderService,catalogService) {
         var catalogCtrl = this;
 
-        var url = "https://api.mongolab.com/api/1/databases/books/collections/books/?apiKey=d3qvB8ldYFW2KSynHRediqLuBLP8JA8i"
-        $http.get(url).then(function (response) {
-            catalogCtrl.catalog = response.data;
-            $rootScope.pageTitle = "Liste des Livre";
-        })
+        // var url = "https://api.mongolab.com/api/1/databases/books/collections/books/?apiKey=d3qvB8ldYFW2KSynHRediqLuBLP8JA8i"
+        // $http.get(url).then(function (response) {
+        //     catalogCtrl.catalog = response.data;
+        //     $rootScope.pageTitle = "Liste des Livre";
+        // })
+
+
+        catalogService.getList().then(function (data) {
+            catalogCtrl.catalog = data;
+        });
+        
 
         catalogCtrl.state = stateService('/catalog', {
             selectedOrder: orderService.default
