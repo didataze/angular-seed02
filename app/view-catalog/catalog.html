@@ -1,8 +1,5 @@
-
-
-
 Recherche global :
-<input type="text" ng-model="catalogCtrl.search.text" name="title" >
+<input type="text" ng-model="catalogCtrl.search.text" name="title">
 <br>
 Titre : <input type="text" ng-model="catalogCtrl.search.text.title">
 Auteur : <input type="text" ng-model="catalogCtrl.search.text.author">
@@ -10,8 +7,13 @@ Editeur : <input type="text" ng-model="catalogCtrl.search.text.publisher">
 <hr>
 Résultats : {{ result.length }}
 <hr>
-min : <input type="text" ng-model="catalogCtrl.search.price.min">
-max : <input type="text" ng-model="catalogCtrl.search.price.max">
+min : <input type="number" ng-model="catalogCtrl.search.price.min">
+max : <input type="number" ng-model="catalogCtrl.search.price.max">
+Order By :
+<select ng-model="catalogCtrl.selectedOrder"
+        ng-options="option.label for option in catalogCtrl.orderOptions">
+</select>
+
 <table border="1">
     <tr>
         <td>titre du livre</td>
@@ -22,8 +24,10 @@ max : <input type="text" ng-model="catalogCtrl.search.price.max">
         <td>prix</td>
     </tr>
 
-    <tr  ng-repeat="book in  catalogCtrl.catalog | filter: catalogCtrl.search.text
-     | interval : catalogCtrl.search.price.min : catalogCtrl.search.price.max as result" >
+    <tr ng-repeat="book in  catalogCtrl.catalog | filter: catalogCtrl.search.text
+     | interval2 : 'price' :catalogCtrl.search.price.min : catalogCtrl.search.price.max
+      | orderBy: catalogCtrl.selectedOrder.expr : catalogCtrl.selectedOrder.reverse
+      as result">
         <td>{{book.title}}</td>
         <td><a href="#/book/{{book._id.$oid}}"><img ng-src="{{book.img}}"/></a></td>
         <td>{{book.author}}</td>

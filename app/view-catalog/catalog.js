@@ -20,4 +20,10 @@ angular
             $rootScope.pageTitle = "Liste des Livre";
         })
 
+        catalogCtrl.orderOptions = [
+            {expr: 'price', reverse: false, label: "Prix croissant"},
+            {expr: 'price', reverse: true,  label: "Prix décroissant"},
+            {expr: 'title', reverse: false, label: "Titre"}
+        ];
+        catalogCtrl.selectedOrder = catalogCtrl.orderOptions[1];
     })
