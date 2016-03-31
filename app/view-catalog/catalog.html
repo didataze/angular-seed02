@@ -1,16 +1,16 @@
 Recherche global :
-<input type="text" ng-model="catalogCtrl.search.text" name="title">
+<input type="text" ng-model="catalogCtrl.state.text" name="title">
 <br>
-Titre : <input type="text" ng-model="catalogCtrl.search.text.title">
-Auteur : <input type="text" ng-model="catalogCtrl.search.text.author">
-Editeur : <input type="text" ng-model="catalogCtrl.search.text.publisher">
+Titre : <input type="text" ng-model="catalogCtrl.state.text.title">
+Auteur : <input type="text" ng-model="catalogCtrl.state.text.author">
+Editeur : <input type="text" ng-model="catalogCtrl.state.text.publisher">
 <hr>
 Résultats : {{ result.length }}
 <hr>
-min : <input type="number" ng-model="catalogCtrl.search.price.min">
-max : <input type="number" ng-model="catalogCtrl.search.price.max">
+min : <input type="number" ng-model="catalogCtrl.state.price.min">
+max : <input type="number" ng-model="catalogCtrl.state.price.max">
 Order By :
-<select ng-model="catalogCtrl.selectedOrder"
+<select ng-model="catalogCtrl.state.selectedOrder"
         ng-options="option.label for option in catalogCtrl.orderOptions">
 </select>
 
@@ -18,18 +18,21 @@ Order By :
     <tr>
         <td>titre du livre</td>
         <td>image</td>
+        <td>Ajout</td>
         <td> nom de l’auteur</td>
         <td>publisher</td>
         <td>rating</td>
         <td>prix</td>
     </tr>
 
-    <tr ng-repeat="book in  catalogCtrl.catalog | filter: catalogCtrl.search.text
-     | interval2 : 'price' :catalogCtrl.search.price.min : catalogCtrl.search.price.max
-      | orderBy: catalogCtrl.selectedOrder.expr : catalogCtrl.selectedOrder.reverse
+    <tr ng-repeat="book in  catalogCtrl.catalog | filter: catalogCtrl.state.text
+     | interval2 : 'price' :catalogCtrl.state.price.min : catalogCtrl.state.price.max
+      | orderBy: catalogCtrl.state.selectedOrder.expr : catalogCtrl.state.selectedOrder.reverse
       as result">
         <td>{{book.title}}</td>
-        <td><a href="#/book/{{book._id.$oid}}"><img ng-src="{{book.img}}"/></a></td>
+        <td><a href="#/book/{{book._id.$oid}}"><img style="width: auto; height: auto;max-width: 120px;max-height: 100px" ng-src="{{book.img}}"/></a></td>
+        <td>
+            <button class="add" ng-click="catalogCtrl.buy(book)">Ajouter au panier</button></td>
         <td>{{book.author}}</td>
         <td>{{book.publisher}}</td>
         <td>{{book.rating}}</td>
@@ -37,4 +40,4 @@ Order By :
     </tr>
 </table>
 
-<pre>{{catalogCtrl.catalog | json}}</pre>
+<!--<pre>{{catalogCtrl.catalog | json}}</pre>-->

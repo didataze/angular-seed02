@@ -1,0 +1,59 @@
+<style type="text/css">
+    tr.warning td {
+        font-weigth : bold;
+        color: red;
+        background-color: yellow;
+    }
+
+</style>
+
+
+<table border="1">
+    <tr>
+        <td>titre du livre</td>
+        <td>image</td>
+        <td>prix</td>
+        <td>Quantite</td>
+        <td>montant HT</td>
+        <td>montant TTC</td>
+        <td>Ajout</td>
+        <td>Supprimer</td>
+        <td> nom de l’auteur</td>
+        <td>publisher</td>
+        <td>rating</td>
+
+    </tr>
+
+    <tr  ng-repeat="row in cartCtrl.cartService.rows" ng-class="{warning: cartCtrl.cartService.isWarning(row)}">
+        <td>{{row.book.title}}</td>
+        <td><a href="#/book/{{book._id.$oid}}"><img style="width: auto; height: auto;max-width: 120px;max-height: 100px" ng-src="{{row.book.img}}"/></a></td>
+        <td>{{row.book.price}}</td>
+        <td><input type="number" style="width: 5em;"  ng-model="row.quantity"></td>
+        <td>{{cartCtrl.cartService.amount(row)}}</td>
+        <td>{{cartCtrl.cartService.amountWithTax(row)}}</td>
+        <td><button   ng-click="cartCtrl.buy(book,row.quantity)">Ajouter</button></td>
+        <td><button   ng-click="cartCtrl.cartService.removeRow(row)">Supprimer</button></td>
+        <td>{{row.book.author}}</td>
+        <td>{{row.book.publisher}}</td>
+        <td>{{row.book.rating}}</td>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total</td>
+        <td> {{cartCtrl.cartService.total() | currency}}</td>
+        <td>{{cartCtrl.cartService.totalWithTax() |currency }}</td>
+        <td><button ng-click="cartCtrl.cartService.vider()">Vider</button></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+    </tr>
+</table>
+
+
+
+<div ng-bind-html="book.desc"></div>
