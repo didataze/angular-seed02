@@ -11,6 +11,18 @@ angular
 
     })
 
+    .directive('rating', function(){
+        return function (scope, element, attrs){
+            scope.$watch(attrs.rating, function (value){
+                var html='',
+                    img='<img src="star.png">';
+                for (var i=0 ; i < value ; i++){
+                    html += img;
+                }
+                element.html(html);
+            });
+        };
+    })
     .controller('CatalogController', function ($http,$rootScope,$location,cart,stateService,orderService,catalogService) {
         var catalogCtrl = this;
 
